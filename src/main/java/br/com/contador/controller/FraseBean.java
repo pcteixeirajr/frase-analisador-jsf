@@ -49,3 +49,4 @@ public class FraseBean implements Serializable {
         return totalPalavras;
     }
 }
+
