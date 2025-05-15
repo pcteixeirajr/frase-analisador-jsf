@@ -53,7 +53,8 @@ src/test/java/br/com/contador/
 ├── service          -> Testes da regra de negócio
 ├── model            -> Testes de equals, hashCode, toString
 └── util             -> Testes de extração e normalização de palavras
-🔍 Funcionalidade
+
+##🔍 Funcionalidade
 O usuário digita uma frase no campo de texto.
 
 O sistema remove acentos, pontuação e normaliza espaços.
@@ -66,7 +67,7 @@ Palavra mais frequente
 
 Total de palavras (incluindo repetições)
 
-💡 Boas Práticas Aplicadas
+##💡 Boas Práticas Aplicadas
 Camadas separadas com responsabilidade única
 
 TreeMap para ordenação automática das palavras
@@ -79,7 +80,9 @@ Testes unitários modernos com JUnit 5, AssertJ e Mockito
 
 Compatibilidade rigorosa com Java 8 (sem uso de recursos pós-Java 8)
 
-✅ Testes Automatizados
+---
+
+##✅ Testes Automatizados
 O projeto inclui cobertura completa dos principais componentes:
 
 Camada	Arquivo de Teste	Frameworks
@@ -88,10 +91,12 @@ service	AnalisadorFraseServiceTest	JUnit 5, AssertJ
 model	PalavraTest	JUnit 5, AssertJ
 util	TextoUtilsTest	JUnit 5, AssertJ
 
-🚀 Como Rodar o Projeto no Eclipse (Enterprise Java and Web Developers 2025-03)
+---
+
+##🚀 Como Rodar o Projeto no Eclipse (Enterprise Java and Web Developers 2025-03)
 O Eclipse EE já vem preparado para trabalhar com projetos Java Web e servidores como WildFly. Siga os passos abaixo:
 
-1. Importar o projeto Maven
+###1. Importar o projeto Maven
 Abra o Eclipse
 
 Vá em File > Import...
@@ -102,7 +107,7 @@ Selecione a pasta frase-analisador-jsf
 
 Conclua com Finish
 
-2. Adicionar o servidor WildFly
+###2. Adicionar o servidor WildFly
 Vá em Window > Show View > Servers
 
 Clique com o botão direito → New > Server
@@ -111,21 +116,24 @@ Escolha WildFly 10.x, informe o caminho do servidor
 
 Finalize
 
-3. Adicionar o projeto ao servidor
+###3. Adicionar o projeto ao servidor
 Clique com o botão direito no WildFly → Add and Remove...
 
 Adicione o projeto frase-analisador-jsf
 
-4. Iniciar o servidor
+###4. Iniciar o servidor
 Clique com o botão direito no WildFly → Start
 
-5. Acessar no navegador
+###5. Acessar no navegador
 bash
 Copiar
 Editar
 http://localhost:8080/frase-analisador-jsf/pages/index.xhtml
-🚀 Como Rodar o Projeto (IntelliJ Community + WildFly)
-1. Importar o projeto
+
+---
+
+##🚀 Como Rodar o Projeto (IntelliJ Community + WildFly)
+###1. Importar o projeto
 File > New > Project from Existing Sources
 
 Escolha pom.xml
