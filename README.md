@@ -10,15 +10,16 @@ Permite ao usuário digitar uma frase e obter:
 
 Este projeto é totalmente compatível com **Java 8**, **JSF 2.2**, **CDI 1.2** e **WildFly 10**.
 
-Esta arquitetura deste projeto segue um modelo MVC desacoplado com JSF + CDI, respeitando boas práticas de projetos Java EE baseados em Web.
+A arquitetura segue o padrão **MVC desacoplado com JSF + CDI**, promovendo clareza, extensibilidade e testabilidade.
 
 ---
+
 ## ✅ Benefícios da Arquitetura
 
 - ✨ Fácil manutenção e extensão
-- 🧪 Testabilidade isolada das camadas
+- 🧪 Camadas testáveis isoladamente
 - 🔌 Pronto para conectar a banco, REST ou filtros
-- 📚 Padronizado e fácil de entender por qualquer dev Java EE
+- 📚 Padronizado e compreensível por qualquer dev Java EE
 
 ---
 
@@ -40,156 +41,163 @@ Esta arquitetura deste projeto segue um modelo MVC desacoplado com JSF + CDI, re
 ## 📦 Estrutura de Pacotes
 
 ```text
-src/main/java/br/com/teste/
+src/main/java/br/com/contador/
 │
 ├── controller       -> Backing Beans (JSF + CDI)
-├── service          -> Regras de negócio centralizadas
-├── model            -> Estrutura de dados (Palavra)
-└── util             -> Utilitários para processamento de texto
-```
+├── service          -> Lógica central de análise de frases
+├── model            -> Representação da palavra e frequência
+└── util             -> Utilitários para processamento textual
 
----
+src/test/java/br/com/contador/
+├── controller       -> Testes unitários do bean JSF
+├── service          -> Testes da regra de negócio
+├── model            -> Testes de equals, hashCode, toString
+└── util             -> Testes de extração e normalização de palavras
+🔍 Funcionalidade
+O usuário digita uma frase no campo de texto.
 
-## 🔍 Funcionalidade
+O sistema remove acentos, pontuação e normaliza espaços.
 
-1. O usuário digita uma frase no campo de texto.
-2. O sistema limpa e normaliza a frase (remove pontuação, espaços redundantes).
-3. A análise retorna:
-   - Mapa de palavras e suas contagens
-   - Palavra mais frequente
-   - Total de palavras (incluindo repetições)
+A frase é dividida em palavras e analisada:
 
----
+Mapa de palavras e suas ocorrências
 
-## 💡 Boas Práticas Aplicadas
+Palavra mais frequente
 
-- Separação clara de camadas (`controller`, `service`, `model`, `util`)
-- Escopos CDI adequados (`@RequestScoped`, `@ApplicationScoped`)
-- Utilização de `TreeMap` para ordenação alfabética automática
-- `TextoUtils` centraliza regras de normalização de texto
-- Classe `Palavra` estruturada para possíveis extensões (JPA-ready)
-- 100% compatível com Java 8 (sem uso de `.isBlank()`, `var`, `stream().toList()` etc.)
+Total de palavras (incluindo repetições)
 
----
+💡 Boas Práticas Aplicadas
+Camadas separadas com responsabilidade única
 
-## 🚀 Como Rodar o Projeto no Eclipse (Enterprise Java and Web Developers 2025-03)
+TreeMap para ordenação automática das palavras
+
+TextoUtils isolado e reutilizável
+
+Classe Palavra pronta para persistência (futura extensão com JPA)
+
+Testes unitários modernos com JUnit 5, AssertJ e Mockito
+
+Compatibilidade rigorosa com Java 8 (sem uso de recursos pós-Java 8)
+
+✅ Testes Automatizados
+O projeto inclui cobertura completa dos principais componentes:
+
+Camada	Arquivo de Teste	Frameworks
+controller	FraseBeanTest	JUnit 5, Mockito
+service	AnalisadorFraseServiceTest	JUnit 5, AssertJ
+model	PalavraTest	JUnit 5, AssertJ
+util	TextoUtilsTest	JUnit 5, AssertJ
+
+🚀 Como Rodar o Projeto no Eclipse (Enterprise Java and Web Developers 2025-03)
 O Eclipse EE já vem preparado para trabalhar com projetos Java Web e servidores como WildFly. Siga os passos abaixo:
 
-### 1. Importar o projeto Maven
+1. Importar o projeto Maven
+Abra o Eclipse
 
-- Abra o Eclipse.
-- Vá em File > Import...
-- Selecione Maven > Existing Maven Projects
-- Clique em Next, e selecione a pasta raiz do projeto (frase-analisador-jsf).
-- Conclua com Finish.
-- O Eclipse reconhecerá automaticamente a estrutura do pom.xml.
+Vá em File > Import...
 
-### 2. Adicionar o servidor WildFly
+Selecione Maven > Existing Maven Projects
 
-- Vá em Window > Show View > Servers
-- Clique com o botão direito no painel de servidores → New > Server
-- Escolha WildFly 10.x e clique em Next
-- Aponte o caminho para o diretório de instalação do WildFly
-- Finalize a configuração
-- O arquivo será gerado em: `target/frase-analisador-jsf.war`
+Selecione a pasta frase-analisador-jsf
 
-### 3. Adicionar o projeto ao servidor
+Conclua com Finish
 
-- Clique com o botão direito sobre o servidor WildFly → Add and Remove...
-- Selecione o projeto frase-analisador-jsf → clique em Add >
-- Finalize com Finish
+2. Adicionar o servidor WildFly
+Vá em Window > Show View > Servers
 
-### 4. Iniciar o servidor
+Clique com o botão direito → New > Server
 
-- Clique com o botão direito no WildFly e escolha Start
-- O projeto será publicado automaticamente
-### 5. Acessar no navegador
+Escolha WildFly 10.x, informe o caminho do servidor
 
-Abra:
+Finalize
 
-```bash
-http://localhost:8080/frase-analisador-jsf/pages/index.xhtm
-```
+3. Adicionar o projeto ao servidor
+Clique com o botão direito no WildFly → Add and Remove...
 
----
+Adicione o projeto frase-analisador-jsf
 
+4. Iniciar o servidor
+Clique com o botão direito no WildFly → Start
 
-
-## 🚀 Como Rodar o Projeto (IntelliJ Community + WildFly)
-
-### 1. Clonar ou baixar o repositório
-```bash
-git clone https://github.com/seuusuario/frase-analisador-jsf.git
-cd frase-analisador-jsf
-```
-
-### 2. Gerar o `.war` com Maven
-```bash
-mvn clean install
-```
-
-O arquivo será gerado em: `target/frase-analisador-jsf.war`
-
-### 3. Fazer o deploy no WildFly
-- Copie o `.war` para a pasta:
-  ```
-  {WILDFLY_HOME}/standalone/deployments/
-  ```
-- Inicie o WildFly:
-  ```bash
-  ./standalone.sh     # Linux/macOS
-  standalone.bat      # Windows
-  ```
-
-### 4. Acessar no navegador
-```
+5. Acessar no navegador
+bash
+Copiar
+Editar
 http://localhost:8080/frase-analisador-jsf/pages/index.xhtml
-```
+🚀 Como Rodar o Projeto (IntelliJ Community + WildFly)
+1. Importar o projeto
+File > New > Project from Existing Sources
 
----
+Escolha pom.xml
 
+Confirme as configurações de Maven
 
+2. Gerar o .war
+bash
+Copiar
+Editar
+mvn clean install
+3. Copiar para o WildFly
+bash
+Copiar
+Editar
+cp target/frase-analisador-jsf.war {WILDFLY_HOME}/standalone/deployments/
+4. Iniciar o servidor
+bash
+Copiar
+Editar
+{WILDFLY_HOME}/bin/standalone.bat    (Windows)
+{WILDFLY_HOME}/bin/standalone.sh     (Linux/macOS)
+5. Acessar no navegador
+bash
+Copiar
+Editar
+http://localhost:8080/frase-analisador-jsf/pages/index.xhtml
+🧪 Teste Manual
+Basta abrir a aplicação, digitar qualquer frase e observar os resultados.
 
+Frase de teste:
 
-## 🧪 Teste e Validação
-
-> Este projeto foi construído para ser **simples de testar manualmente**.  
-> Basta abrir a aplicação, digitar qualquer frase e observar o resultado em tempo real.
-
-**Exemplo de entrada:**
-```
+mathematica
+Copiar
+Editar
 O tempo perguntou ao tempo quanto tempo o tempo tem
-```
+Resultado esperado:
 
-**Resultado esperado:**
-- Palavras distintas: 7
-- Palavra mais frequente: tempo (4x)
-- Total de palavras: 10
+Palavras distintas: 7
+
+Palavra mais frequente: tempo (4x)
+
+Total de palavras: 10
+
+📌 Observações Técnicas
+100% compatível com Java 8
+
+Projeto empacotado como .war com dependências provided
+
+Usa JSF + PrimeFaces + CDI com escopos leves
+
+Nenhum banco de dados exigido
+
+Fácil expansão para REST, JPA ou autenticação
+
+🤝 Contribuições
+Este projeto foi desenvolvido como exercício técnico e demonstração de boas práticas em Java EE.
+Fique à vontade para bifurcar, adaptar ou evoluir.
+
+🧠 Autor
+Paulo Junior
+Desenvolvedor Java | Arquiteto de Soluções
+
+LinkedIn | GitHub
+
+“Código limpo é aquele que você tem orgulho de entregar. Mesmo que ninguém veja.”
+– Um dev sênior feliz 😄
+
+yaml
+Copiar
+Editar
 
 ---
 
-## 📌 Observações Técnicas
-
-- O projeto **não depende de banco de dados**
-- Integração entre JSF e CDI é feita via `@Named` e `@Inject`
-- Utiliza apenas escopos leves (`RequestScoped`, `ApplicationScoped`)
-- Pronto para extensões: persistência, REST, segurança, internacionalização
-
----
-
-## 🤝 Contribuições
-
-Este projeto foi criado como um exercício técnico.  
-Fique à vontade para bifurcar, melhorar ou adaptar conforme sua necessidade.
-
----
-
-## 🧠 Autor
-
-**Paulo Junior**  
-Software Developer
-
----
-
-> “Código limpo é aquele que você tem orgulho de entregar. Mesmo que ninguém veja.”  
-> – Um dev sênior feliz 😄
+### ✅ Deseja que eu gere esse `README.md` como arquivo para download agora? Posso salvá-lo direto no projeto também.
