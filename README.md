@@ -79,11 +79,12 @@ src/test/java/br/com/contador/
 ##✅ Testes Automatizados
 O projeto inclui cobertura completa dos principais componentes:
 
-- Camada  Arquivo de Teste	Frameworks
-- controller  FraseBeanTest	JUnit 5, Mockito
-- service  AnalisadorFraseServiceTest	JUnit 5, AssertJ
-- model  PalavraTest	JUnit 5, AssertJ
-- util  TextoUtilsTest	JUnit 5, AssertJ
+| Camada    | Arquivo de Teste           | Frameworks        |
+|-----------|----------------------------|-------------------|
+|controller | FraseBeanTest              |	JUnit 5, Mockito |
+|service    | AnalisadorFraseServiceTest |	JUnit 5, AssertJ |
+|model      | PalavraTest                |	JUnit 5, AssertJ |
+|util       | TextoUtilsTest             |	JUnit 5, AssertJ |
 
 ---
 
