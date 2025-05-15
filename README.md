@@ -13,6 +13,7 @@ Este projeto é totalmente compatível com **Java 8**, **JSF 2.2**, **CDI 1.2** 
 Esta arquitetura deste projeto segue um modelo MVC desacoplado com JSF + CDI, respeitando boas práticas de projetos Java EE baseados em Web.
 
 ---
+
 ## ✅ Benefícios da Arquitetura
 
 - ✨ Fácil manutenção e extensão
@@ -72,8 +73,77 @@ src/main/java/br/com/teste/
 
 ---
 
+## ✅ Testes Automatizados
+
+Este projeto foi estruturado para oferecer **testabilidade completa** das principais camadas de negócio, utilizando ferramentas modernas e compatíveis com **Java 8**.
+
+Foram aplicadas boas práticas como:
+
+- **Testes isolados** por responsabilidade (`controller`, `service`, `util`, `model`)
+- Uso de **JUnit 5** para definição de cenários
+- Uso de **Mockito** para mocks em testes de beans com dependência de serviço
+- Uso de **AssertJ** para asserções legíveis e robustas
+
+### 📁 Estrutura dos testes
+
+```text
+src/test/java/br/com/teste/
+│
+├── controller       -> Testes unitários de FraseBean com Mockito
+├── service          -> Testes puros da lógica de negócio
+├── model            -> Testes de equals, hashCode, toString
+└── util             -> Testes de normalização e extração de palavras
+```
+
+### 📌 Cobertura de Testes
+
+| Camada       | Classe de Teste               | Frameworks Utilizados     |
+|--------------|-------------------------------|----------------------------|
+| Controller   | `FraseBeanTest`               | JUnit 5, Mockito, AssertJ  |
+| Service      | `AnalisadorFraseServiceTest`  | JUnit 5, AssertJ           |
+| Model        | `PalavraTest`                 | JUnit 5, AssertJ           |
+| Utilitário   | `TextoUtilsTest`              | JUnit 5, AssertJ           |
+
+### 🔧 Dependências necessárias (já inclusas no `pom.xml`)
+
+```xml
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter</artifactId>
+  <version>5.9.3</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.mockito</groupId>
+  <artifactId>mockito-core</artifactId>
+  <version>5.11.0</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.mockito</groupId>
+  <artifactId>mockito-junit-jupiter</artifactId>
+  <version>5.11.0</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.assertj</groupId>
+  <artifactId>assertj-core</artifactId>
+  <version>3.24.2</version>
+  <scope>test</scope>
+</dependency>
+```
+
+### ▶️ Executando os testes
+
+```bash
+mvn test
+```
+
+Ou através da IDE, clicando com o botão direito sobre as classes de teste.
+
+---
+
 ## 🚀 Como Rodar o Projeto no Eclipse (Enterprise Java and Web Developers 2025-03)
-O Eclipse EE já vem preparado para trabalhar com projetos Java Web e servidores como WildFly. Siga os passos abaixo:
 
 ### 1. Importar o projeto Maven
 
@@ -82,88 +152,81 @@ O Eclipse EE já vem preparado para trabalhar com projetos Java Web e servidores
 - Selecione Maven > Existing Maven Projects
 - Clique em Next, e selecione a pasta raiz do projeto (frase-analisador-jsf).
 - Conclua com Finish.
-- O Eclipse reconhecerá automaticamente a estrutura do pom.xml.
 
 ### 2. Adicionar o servidor WildFly
 
 - Vá em Window > Show View > Servers
-- Clique com o botão direito no painel de servidores → New > Server
-- Escolha WildFly 10.x e clique em Next
-- Aponte o caminho para o diretório de instalação do WildFly
-- Finalize a configuração
-- O arquivo será gerado em: `target/frase-analisador-jsf.war`
+- Clique com o botão direito → New > Server
+- Escolha WildFly 10.x e informe o caminho
+- Finalize
 
 ### 3. Adicionar o projeto ao servidor
 
-- Clique com o botão direito sobre o servidor WildFly → Add and Remove...
-- Selecione o projeto frase-analisador-jsf → clique em Add >
-- Finalize com Finish
+- Clique com o botão direito sobre o WildFly → Add and Remove...
+- Adicione o projeto `frase-analisador-jsf`
 
 ### 4. Iniciar o servidor
 
 - Clique com o botão direito no WildFly e escolha Start
-- O projeto será publicado automaticamente
+
 ### 5. Acessar no navegador
 
-Abra:
-
 ```bash
-http://localhost:8080/frase-analisador-jsf/pages/index.xhtm
+http://localhost:8080/frase-analisador-jsf/pages/index.xhtml
 ```
 
 ---
 
-
-
 ## 🚀 Como Rodar o Projeto (IntelliJ Community + WildFly)
 
 ### 1. Clonar ou baixar o repositório
+
 ```bash
 git clone https://github.com/seuusuario/frase-analisador-jsf.git
 cd frase-analisador-jsf
 ```
 
 ### 2. Gerar o `.war` com Maven
+
 ```bash
 mvn clean install
 ```
 
-O arquivo será gerado em: `target/frase-analisador-jsf.war`
-
 ### 3. Fazer o deploy no WildFly
-- Copie o `.war` para a pasta:
-  ```
-  {WILDFLY_HOME}/standalone/deployments/
-  ```
-- Inicie o WildFly:
-  ```bash
-  ./standalone.sh     # Linux/macOS
-  standalone.bat      # Windows
-  ```
 
-### 4. Acessar no navegador
+```bash
+cp target/frase-analisador-jsf.war {WILDFLY_HOME}/standalone/deployments/
 ```
+
+### 4. Iniciar o WildFly
+
+```bash
+{WILDFLY_HOME}/bin/standalone.bat    # Windows
+{WILDFLY_HOME}/bin/standalone.sh     # Linux/macOS
+```
+
+### 5. Acessar no navegador
+
+```bash
 http://localhost:8080/frase-analisador-jsf/pages/index.xhtml
 ```
 
 ---
 
+## 🧪 Teste Manual
 
+Digite qualquer frase na aplicação e verifique os resultados.
 
+**Exemplo:**
 
-## 🧪 Teste e Validação
-
-> Este projeto foi construído para ser **simples de testar manualmente**.  
-> Basta abrir a aplicação, digitar qualquer frase e observar o resultado em tempo real.
-
-**Exemplo de entrada:**
 ```
 O tempo perguntou ao tempo quanto tempo o tempo tem
 ```
 
 **Resultado esperado:**
-- Palavras distintas: 7
-- Palavra mais frequente: tempo (4x)
+
+- Palavras distintas: 7  
+- Palavra mais frequente: tempo (4x)  
 - Total de palavras: 10
 
 ---
@@ -171,16 +234,15 @@ O tempo perguntou ao tempo quanto tempo o tempo tem
 ## 📌 Observações Técnicas
 
 - O projeto **não depende de banco de dados**
-- Integração entre JSF e CDI é feita via `@Named` e `@Inject`
-- Utiliza apenas escopos leves (`RequestScoped`, `ApplicationScoped`)
-- Pronto para extensões: persistência, REST, segurança, internacionalização
+- Integração entre JSF e CDI com `@Named`, `@Inject`, `@RequestScoped`, `@ApplicationScoped`
+- Estrutura pronta para REST, banco de dados, segurança, i18n
 
 ---
 
 ## 🤝 Contribuições
 
-Este projeto foi criado como um exercício técnico.  
-Fique à vontade para bifurcar, melhorar ou adaptar conforme sua necessidade.
+Projeto criado como exercício técnico.  
+Sinta-se à vontade para bifurcar, adaptar ou evoluir.
 
 ---
 
