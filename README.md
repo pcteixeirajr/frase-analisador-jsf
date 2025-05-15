@@ -54,42 +54,36 @@ src/test/java/br/com/contador/
 ├── model            -> Testes de equals, hashCode, toString
 └── util             -> Testes de extração e normalização de palavras
 
+```
+
 ##🔍 Funcionalidade
-O usuário digita uma frase no campo de texto.
 
-O sistema remove acentos, pontuação e normaliza espaços.
-
-A frase é dividida em palavras e analisada:
-
-Mapa de palavras e suas ocorrências
-
-Palavra mais frequente
-
-Total de palavras (incluindo repetições)
+- O usuário digita uma frase no campo de texto.
+- O sistema remove acentos, pontuação e normaliza espaços.
+- A frase é dividida em palavras e analisada:
+- Mapa de palavras e suas ocorrências
+- Palavra mais frequente
+- Total de palavras (incluindo repetições)
 
 ##💡 Boas Práticas Aplicadas
-Camadas separadas com responsabilidade única
 
-TreeMap para ordenação automática das palavras
-
-TextoUtils isolado e reutilizável
-
-Classe Palavra pronta para persistência (futura extensão com JPA)
-
-Testes unitários modernos com JUnit 5, AssertJ e Mockito
-
-Compatibilidade rigorosa com Java 8 (sem uso de recursos pós-Java 8)
+- Camadas separadas com responsabilidade única
+- TreeMap para ordenação automática das palavras
+- TextoUtils isolado e reutilizável
+- Classe Palavra pronta para persistência (futura extensão com JPA)
+- Testes unitários modernos com JUnit 5, AssertJ e Mockito
+- Compatibilidade rigorosa com Java 8 (sem uso de recursos pós-Java 8)
 
 ---
 
 ##✅ Testes Automatizados
 O projeto inclui cobertura completa dos principais componentes:
 
-Camada	Arquivo de Teste	Frameworks
-controller	FraseBeanTest	JUnit 5, Mockito
-service	AnalisadorFraseServiceTest	JUnit 5, AssertJ
-model	PalavraTest	JUnit 5, AssertJ
-util	TextoUtilsTest	JUnit 5, AssertJ
+- Camada  Arquivo de Teste	Frameworks
+- controller  FraseBeanTest	JUnit 5, Mockito
+- service  AnalisadorFraseServiceTest	JUnit 5, AssertJ
+- model  PalavraTest	JUnit 5, AssertJ
+- util  TextoUtilsTest	JUnit 5, AssertJ
 
 ---
 
